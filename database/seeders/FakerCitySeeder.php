@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use Faker\Factory;
+
 use App\Models\City;
+use App\Models\Weather;
+use App\Models\Forecast;
+
 use Throwable;
 
 class FakerCitySeeder extends Seeder
@@ -21,19 +24,40 @@ class FakerCitySeeder extends Seeder
 
         $faker = Factory::create('sr_Latn_RS'); // create('sr_Latn_RS')
         $console->progressStart($amount);
-        $count = 0;
+
+        $new_cities_ids = [];
         for($i=0; $i<$amount; $i++)
         {
             try {
-                City::create([
+                $city_db = City::create([
                     "city" => mb_strtolower($faker->city(), 'UTF-8')
                 ]);
-                $count++;
+                array_push($new_cities_ids, $city_db->id);
             } catch (Throwable $e) {
             }
             $console->progressAdvance();
         }
+
         $console->progressFinish();
+        $count = count($new_cities_ids);
         $console->info("Uspesno je kreirano $count gradova.");
+
+        foreach ($new_cities_ids as $city_id)
+        {
+            Weather::create([
+               'city_id' => $city_id,
+               'temperature' => $faker->randomFloat(1, -10, 30)
+            ]);
+
+            for ($i=1; $i<6; $i++)
+            {
+                Forecast::create([
+                    'city_id' => $city_id,
+                    'temperature' => $faker->randomFloat(1, -10, 30),
+                    'date' => date("Y-m-d", strtotime("+".$i." Days"))
+                ]);
+            }
+
+        }
     }
 }
