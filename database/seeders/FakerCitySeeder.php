@@ -19,7 +19,7 @@ class FakerCitySeeder extends Seeder
         $console = $this->command->getOutput();
         $amount = $console->ask('Koliko gradova zelite da kreirate?', 100);
 
-        $faker = Factory::create('sr_RS'); // create('sr_Latn_RS')
+        $faker = Factory::create('sr_Latn_RS'); // create('sr_Latn_RS')
         $console->progressStart($amount);
         $count = 0;
         for($i=0; $i<$amount; $i++)

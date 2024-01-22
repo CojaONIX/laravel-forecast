@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\City;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home.page');
+//Route::view('/', 'home')->name('home.page');
+Route::get('/', function () {
+    $cities = City::all();
+    return view('home', compact('cities'));
+})->name('home.page');
+
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
