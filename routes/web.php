@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Models\City;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ForecastController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,20 @@ Route::get('/', function () {
 
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
+
+Route::get('/weather', [ForecastController::class, 'getWeathers'])->name('weather.page');
+Route::get('/forecast/{city}', [ForecastController::class, 'getCityForecast'])->name('forecast.city.page');
+
+Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(function () {
+    Route::controller(ForecastController::class)->prefix('/forecast')->name('forecast.')->group(function () {
+        Route::get('/all', 'getAllForecasts')->name('all.page');
+        Route::get('/add', 'addForecastPage')->name('add.page');
+        Route::post('/add', 'createForecast')->name('create');
+        Route::get('/edit/{forecast}', 'editForecastPage')->name('edit.page');
+        Route::put('/edit/{forecast}', 'updateForecast')->name('update');
+        Route::delete('/delete/{forecast}', 'deleteForecast')->name('delete');
+    });
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
