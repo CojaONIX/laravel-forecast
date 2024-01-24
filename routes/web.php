@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use App\Models\City;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,11 @@ Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(
         Route::delete('/delete/{forecast}', 'deleteForecast')->name('delete');
     });
 });
+
+Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
+Route::post('/test', [TestController::class, 'ajaxGetTestData']);
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

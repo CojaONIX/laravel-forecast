@@ -10,7 +10,8 @@ class ForecastController extends Controller
 {
     public function getWeathers()
     {
-        $weathers = Weather::all();
+        //$weathers = Weather::all();
+        $weathers = Weather::with('city:id,city')->get();
         return view('weather', compact('weathers'));
     }
     public function getAllForecasts()

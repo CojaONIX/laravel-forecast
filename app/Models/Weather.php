@@ -13,8 +13,12 @@ class Weather extends Model
         'temperature'
     ];
 
+//    public function city()
+//    {
+//        return $this->hasOne(City::class, 'id', 'city_id');
+//    }
     public function city()
     {
-        return $this->hasOne(City::class, 'id', 'city_id');
+        return $this->belongsTo(City::class);
     }
 }
