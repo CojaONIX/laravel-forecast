@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->float('temperature', 5, 2);
-            $table->timestamp('date');
+            $table->date('date');
             $table->timestamps();
         });
     }
