@@ -2,16 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Faker\Factory;
-
 use App\Models\City;
-use App\Models\Weather;
 use App\Models\Forecast;
-
+use App\Models\Weather;
 use Carbon\Carbon;
-
+use Faker\Factory;
+use Illuminate\Database\Seeder;
 use Throwable;
 
 class FakerCitySeeder extends Seeder
