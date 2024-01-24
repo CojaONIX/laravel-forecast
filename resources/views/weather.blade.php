@@ -18,7 +18,7 @@
         @foreach($weathers as $weather)
             <tr>
                 <td>{{ $weather->id }}</td>
-                <td>{{ $weather->city->city }}</td>
+                <td><a href="/forecast/{{ $weather->city->city }}">{{ $weather->city->city }}</a></td>
                 <td>{{ $weather->temperature }}</td>
                 <td>{{ $weather->created_at }}</td>
                 <td>{{ $weather->updated_at }}</td>
