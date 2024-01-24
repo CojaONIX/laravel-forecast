@@ -20,6 +20,7 @@
             <th>id</th>
             <th>city</th>
             <th>temperature</th>
+            <th>date</th>
             <th>created_at</th>
             <th>updated_at</th>
             <th>Action</th>
@@ -30,8 +31,9 @@
         @foreach($forecasts as $forecast)
             <tr>
                 <td>{{ $forecast->id }}</td>
-                <td>{{ $forecast->city }}</td>
+                <td>{{ $forecast->city->city }}</td>
                 <td>{{ $forecast->temperature }}</td>
+                <td>{{ $forecast->date }}</td>
                 <td>{{ $forecast->created_at }}</td>
                 <td>{{ $forecast->updated_at }}</td>
                 <td>
