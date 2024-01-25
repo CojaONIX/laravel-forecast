@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class WeatherController extends Controller
 {
+    public function getWeathers()
+    {
+        //$weathers = Weather::all();
+        $weathers = Weather::with('city:id,city')->get();
+        return view('weather', compact('weathers'));
+    }
     public function update(Request $request)
     {
         $request->validate([

@@ -9,12 +9,6 @@ use Illuminate\Http\Request;
 
 class ForecastController extends Controller
 {
-    public function getWeathers()
-    {
-        //$weathers = Weather::all();
-        $weathers = Weather::with('city:id,city')->get();
-        return view('weather', compact('weathers'));
-    }
     public function getAllForecasts()
     {
         $forecasts = Forecast::all();
@@ -81,5 +75,32 @@ class ForecastController extends Controller
 //        return view('cityForecast', compact('cityForecasts'));
 
         return view('cityForecast', compact('city'));  // 14.8
+    }
+
+    public function forecastsAll()
+    {
+        $cities = City::with('forecasts')->get();
+        return view('admin.forecast.forecasts', compact('cities'));
+    }
+
+    public function forecastsAdd(Request $request)
+    {
+        $request->validate([
+            'temperature' => 'required|numeric',
+            'city_id' => 'required|exists:cities,id',
+            'date' => 'required',
+            'weather_type' => 'required',
+            'probability' => 'nullable'
+        ]);
+
+        Forecast::create([
+            'city_id' => $request->get('city_id'),
+            'temperature' => $request->get('temperature'),
+            'date' => $request->get('date'),
+            'weather_type' => $request->get('weather_type'),
+            'probability' => $request->get('weather_type') == 'sunny' ? null : $request->get('probability'),
+        ]);
+
+        return redirect()->back();
     }
 }

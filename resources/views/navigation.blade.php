@@ -26,9 +26,18 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('admin.forecast.all.page') }}">allForecasts</a></li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+
+                        <li><a class="dropdown-item" href="{{ route('admin.weather.page') }}">admin weather</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.forecasts') }}">admin forecasts</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
                         <li><a class="dropdown-item" href="{{ route('welcome.page') }}">Welcome</a></li>
                     </ul>
                 </li>

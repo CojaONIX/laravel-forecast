@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
-Route::get('/weather', [ForecastController::class, 'getWeathers'])->name('weather.page');
+Route::get('/weather', [WeatherController::class, 'getWeathers'])->name('weather.page');
 Route::get('/forecast/{city:city}', [ForecastController::class, 'getCityForecasts'])->name('forecast.city.page');
 
 Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(function () {
@@ -43,6 +43,9 @@ Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(
 
     Route::view('/weather', 'admin.weather.weather')->name('weather.page');
     Route::post('/weather/update', [WeatherController::class, 'update'])->name('weather.update');
+
+    Route::get('/forecasts', [ForecastController::class, 'forecastsAll'])->name('forecasts');
+    Route::post('/forecasts/add', [ForecastController::class, 'forecastsAdd'])->name('forecasts.create');
 });
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
