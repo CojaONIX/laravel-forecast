@@ -28,7 +28,7 @@ Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
 Route::get('/weather', [ForecastController::class, 'getWeathers'])->name('weather.page');
-Route::get('/forecast/{city}', [ForecastController::class, 'getCityForecasts'])->name('forecast.city.page');
+Route::get('/forecast/{city:city}', [ForecastController::class, 'getCityForecasts'])->name('forecast.city.page');
 
 Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(function () {
     Route::controller(ForecastController::class)->prefix('/forecast')->name('forecast.')->group(function () {

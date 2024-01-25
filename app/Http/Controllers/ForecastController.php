@@ -68,10 +68,16 @@ class ForecastController extends Controller
         return redirect()->route('admin.forecast.all.page')->withSuccess('Forecast is deleted.');
     }
 
-    public function getCityForecasts($city)
+    public function getCityForecasts(City $city)
     {
-        $city = strtolower($city);
-        $cityForecasts = City::where(['city' => $city])->with('forecasts')->first();
+//        $city = strtolower($city); // ???
+//        $cityForecasts = City::where(['city' => $city])->with('forecasts')->first(); // No Model binding
+//        $cityForecasts = City::where(['id' => $city->id])->with('forecasts')->first(); // Model binding
+
+//        $prognoze = Forecast::where(['city_id' => $city->id])->get();
+//        dd($prognoze);
+
+        $cityForecasts = $city->load('forecasts');
 
         return view('cityForecast', compact('cityForecasts'));
     }
