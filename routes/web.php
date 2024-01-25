@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\WeatherController;
 use App\Models\City;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(
     });
 
     Route::view('/weather', 'admin.weather.weather')->name('weather.page');
+    Route::post('/weather/update', [WeatherController::class, 'update'])->name('weather.update');
 });
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');

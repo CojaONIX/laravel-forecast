@@ -4,13 +4,15 @@
 
 @section('content')
 
-    <form action="">
-        <input type="text" name="temperature" placeholder="Unesite temperaturu">
+    <form method="POST" action="{{ route('admin.weather.update') }}">
+        @csrf
+
         <select name="city_id">
             @foreach(\App\Models\City::all() as $city)
                 <option value="{{ $city->id }}">{{ $city->city }}</option>
             @endforeach
         </select>
+        <input type="text" name="temperature" placeholder="Unesite temperaturu">
         <button>Snimi</button>
     </form>
 
