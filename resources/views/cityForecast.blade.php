@@ -4,14 +4,14 @@
 
 @section('content')
 
-    @if(isset($city))
-        <h2>{{ ucwords($city) }}</h2>
+    @if(isset($cityForecasts))
+        <h2>{{ ucwords($cityForecasts->city) }}</h2>
         <hr>
 
         <ul>
-        @foreach($cityForecast as $day => $t)
-            <li>{{ $day }}: {{ $t }}</li>
-        @endforeach
+            @foreach($cityForecasts->forecasts as $cityForecast)
+                <li>date: {{ $cityForecast->date }} - temperature: {{ $cityForecast->temperature }}</li>
+            @endforeach
         </ul>
     @else
         <h2>Trazeni grad ne postoji!</h2>

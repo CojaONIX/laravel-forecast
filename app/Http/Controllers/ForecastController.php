@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Forecast;
 use App\Models\Weather;
 use Illuminate\Http\Request;
@@ -67,23 +68,11 @@ class ForecastController extends Controller
         return redirect()->route('admin.forecast.all.page')->withSuccess('Forecast is deleted.');
     }
 
-    public function getCityForecast($city)
+    public function getCityForecasts($city)
     {
-        $citiesForecast = [
-            'beograd' => ['pon' => 12, 'uto' => 13, 'sre' => 14, 'cet' => 11, 'pet' => 13],
-            'novi sad'  => ['pon' => 10, 'uto' => 13, 'sre' => 12, 'cet' => 12, 'pet' => 14],
-            'aleksinac' => ['pon' => 11, 'uto' => 9, 'sre' => 11, 'cet' => 14, 'pet' => 13]
-        ];
-
         $city = strtolower($city);
+        $cityForecasts = City::where(['city' => $city])->with('forecasts')->first();
 
-        if(!array_key_exists($city, $citiesForecast))
-        {
-            return view('cityForecast');
-        }
-
-        $cityForecast = $citiesForecast[$city];
-
-        return view('cityForecast', compact('city', 'cityForecast'));
+        return view('cityForecast', compact('cityForecasts'));
     }
 }
