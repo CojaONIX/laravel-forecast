@@ -39,6 +39,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(
         Route::put('/edit/{forecast}', 'updateForecast')->name('update');
         Route::delete('/delete/{forecast}', 'deleteForecast')->name('delete');
     });
+
+    Route::view('/weather', 'admin.weather.weather')->name('weather.page');
 });
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
