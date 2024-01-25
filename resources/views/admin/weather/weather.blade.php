@@ -6,7 +6,11 @@
 
     <form action="">
         <input type="text" name="temperature" placeholder="Unesite temperaturu">
-        <input type="text" name="city_id" placeholder="Inesite ID grada">
+        <select name="city_id">
+            @foreach(\App\Models\City::all() as $city)
+                <option value="{{ $city->id }}">{{ $city->city }}</option>
+            @endforeach
+        </select>
         <button>Snimi</button>
     </form>
 
