@@ -13,6 +13,15 @@
                 <li>date: {{ $cityForecast->date }} - temperature: {{ $cityForecast->temperature }}</li>
             @endforeach
         </ul>
+    @elseif(isset($city))
+        <h2>{{ ucwords($city->city) }}</h2>
+        <hr>
+
+        <ul>
+            @foreach($city->forecasts as $forecast)
+                <li>date: {{ $forecast->date }} - temperature: {{ $forecast->temperature }}</li>
+            @endforeach
+        </ul>
     @else
         <h2>Trazeni grad ne postoji!</h2>
     @endif

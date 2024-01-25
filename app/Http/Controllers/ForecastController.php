@@ -77,8 +77,9 @@ class ForecastController extends Controller
 //        $prognoze = Forecast::where(['city_id' => $city->id])->get();
 //        dd($prognoze);
 
-        $cityForecasts = $city->load('forecasts');
+//        $cityForecasts = $city->load('forecasts');
+//        return view('cityForecast', compact('cityForecasts'));
 
-        return view('cityForecast', compact('cityForecasts'));
+        return view('cityForecast', compact('city'));  // 14.8
     }
 }
