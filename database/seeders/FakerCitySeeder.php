@@ -49,10 +49,15 @@ class FakerCitySeeder extends Seeder
 
             for ($i=1; $i<6; $i++)
             {
+                $weatherType = Forecast::WEATHERS[rand(0 ,2)];
+                $probability = $weatherType == 'sunny' ? null : rand(1, 100);
+
                 Forecast::create([
                     'city_id' => $city_id,
                     'temperature' => $faker->randomFloat(1, -10, 30),
-                    'date' => Carbon::now()->addDays($i)->format('Y-m-d')
+                    'date' => Carbon::now()->addDays($i)->format('Y-m-d'),
+                    'weather_type' => $weatherType,
+                    'probability' => $probability
                 ]);
             }
 
