@@ -22,6 +22,7 @@ class TestController extends Controller
             'logged user',
             'cities',
             'cities with weather',
+            'cities with forecasts',
             'weathers',
             'weathers with city'
 
@@ -55,6 +56,9 @@ class TestController extends Controller
 
             case('cities with weather'):
                 return City::with('weather')->get();
+
+            case('cities with forecasts'):
+                return City::with('forecasts')->get();
 
             case('weathers'):
                 return Weather::all();

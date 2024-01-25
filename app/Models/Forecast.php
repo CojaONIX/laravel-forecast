@@ -16,6 +16,6 @@ class Forecast extends Model
 
     public function city()
     {
-        return $this->hasOne(City::class, 'id', 'city_id');
+        return $this->belongsTo(City::class);
     }
 }
