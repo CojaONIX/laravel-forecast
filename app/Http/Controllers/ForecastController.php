@@ -85,7 +85,7 @@ class ForecastController extends Controller
 
     public function forecastsAdd(Request $request)
     {
-        $request->validate([
+        $valid = $request->validate([
             'temperature' => 'required|numeric',
             'city_id' => 'required|exists:cities,id',
             'date' => 'required',
@@ -93,13 +93,12 @@ class ForecastController extends Controller
             'probability' => 'nullable'
         ]);
 
-        Forecast::create([
-            'city_id' => $request->get('city_id'),
-            'temperature' => $request->get('temperature'),
-            'date' => $request->get('date'),
-            'weather_type' => $request->get('weather_type'),
-            'probability' => $request->get('weather_type') == 'sunny' ? null : $request->get('probability'),
-        ]);
+        if($valid['weather_type'] == 'sunny')
+        {
+            $valid['probability'] = null;
+        }
+
+        Forecast::create($valid);
 
         return redirect()->back();
     }
