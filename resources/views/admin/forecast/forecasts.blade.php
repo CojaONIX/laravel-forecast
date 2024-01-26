@@ -32,23 +32,7 @@
         @foreach($city->forecasts as $forecast)
 
             @php
-                $color = null;
-                if($forecast->temperature <= 0)
-                    {
-                        $color = 'lightblue';
-                    }
-                elseif($forecast->temperature <= 15)
-                    {
-                        $color = 'blue';
-                    }
-                elseif($forecast->temperature <= 25)
-                    {
-                        $color = 'green';
-                    }
-                else
-                    {
-                        $color = 'red';
-                    }
+                $color = \App\Http\TemperatureColorHelper::getColorByTemperature($forecast->temperature)
             @endphp
 
             <li>{{ $forecast->date }} - <span style="color:{{ $color }};">{{ $forecast->temperature }}</span> - {{ $forecast->weather_type }} - {{ $forecast->probability }}</li>
