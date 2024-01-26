@@ -15,9 +15,9 @@
         <input type="text" name="temperature" placeholder="Unesite temperaturu">
 
         <select name="weather_type">
-            <option value="sunny">sunny</option>
-            <option value="rainy">rainy</option>
-            <option value="snowy">snowy</option>
+            @foreach(\App\Models\Forecast::WEATHERS as $weather)
+                <option value="{{ $weather }}">{{ $weather }}</option>
+            @endforeach
         </select>
 
         <input type="text" name="probability" placeholder="% verovatnoce za padavine">
