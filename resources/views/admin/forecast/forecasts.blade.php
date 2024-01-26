@@ -30,7 +30,28 @@
         <h4>{{ $city->city }}</h4>
         <ul>
         @foreach($city->forecasts as $forecast)
-            <li>{{ $forecast->date }} - {{ $forecast->temperature }} - {{ $forecast->weather_type }} - {{ $forecast->probability }}</li>
+
+            @php
+                $color = null;
+                if($forecast->temperature <= 0)
+                    {
+                        $color = 'lightblue';
+                    }
+                elseif($forecast->temperature <= 15)
+                    {
+                        $color = 'blue';
+                    }
+                elseif($forecast->temperature <= 25)
+                    {
+                        $color = 'green';
+                    }
+                else
+                    {
+                        $color = 'red';
+                    }
+            @endphp
+
+            <li>{{ $forecast->date }} - <span style="color:{{ $color }};">{{ $forecast->temperature }}</span> - {{ $forecast->weather_type }} - {{ $forecast->probability }}</li>
         @endforeach
         </ul>
     @endforeach
