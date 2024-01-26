@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use Throwable;
+
 class ForecastHelper
 {
     public static function getColorByTemperature($temperature)
@@ -26,19 +28,17 @@ class ForecastHelper
         return $color;
     }
 
+    const WEATHER_ICONS = [
+        'rainy' => 'cloud-rain',
+        'sunny'=> 'sun',
+        'snowy' => 'snowflake'
+    ];
     public static function getIconByWeatherType($type)
     {
-        $types = [
-            'rainy' => 'cloud-rain',
-            'sunny'=> 'sun',
-            'snowy' => 'snowflake'
-        ];
-
-        if(!array_key_exists($type, $types))
-        {
+        try {
+            return self::WEATHER_ICONS[$type];
+        } catch (Throwable $e) {
             return 'x';
         }
-
-        return $types[$type];
     }
 }
