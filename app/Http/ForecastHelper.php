@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-class TemperatureColorHelper
+class ForecastHelper
 {
     public static function getColorByTemperature($temperature)
     {
@@ -24,5 +24,21 @@ class TemperatureColorHelper
         }
 
         return $color;
+    }
+
+    public static function getIconByWeatherType($type)
+    {
+        $types = [
+            'rainy' => 'cloud-rain',
+            'sunny'=> 'sun',
+            'snowy' => 'snowflake'
+        ];
+
+        if(!array_key_exists($type, $types))
+        {
+            return 'x';
+        }
+
+        return $types[$type];
     }
 }
