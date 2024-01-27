@@ -16,7 +16,7 @@ class Forecast extends Model
         'probability'
     ];
 
-    const WEATHERS = ['rainy', 'sunny', 'snowy'];
+    const WEATHERS = ['sunny', 'cloudy', 'rainy', 'snowy'];
 
     public function city()
     {
