@@ -14,6 +14,9 @@ class HomeController extends Controller
     }
     public function search(Request $request)
     {
-        die('test');
+        $cityName = $request->get('city');
+        $cities = City::where('city', 'LIKE', '%'.$cityName.'%')->get();
+
+        return view('home', compact('cities'));
     }
 }
