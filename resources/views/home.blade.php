@@ -12,10 +12,11 @@
     <hr>
 
     <form action="">
-        <div>
-            <input type="text" name="city" placeholder="Unesite ime grada">
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" name="city" id="city" placeholder="Unesite ime grada">
+            <label for="city">City:</label>
         </div>
-        <button type="submit">Pronadji</button>
+        <button class="btn btn-outline-primary" type="submit">Pronadji</button>
     </form>
 
 @endsection
