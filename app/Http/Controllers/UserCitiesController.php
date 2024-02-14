@@ -11,9 +11,7 @@ class UserCitiesController extends Controller
 {
     public function favourite(Request $request, $city)
     {
-        $user = Auth::user();
-
-        if($user === null)
+        if(!Auth::check())
         {
             return redirect()->back()->with('error', 'Morate biti ulogovani da bi oznacili grad.');
         }
@@ -22,6 +20,13 @@ class UserCitiesController extends Controller
             'user_id' => Auth::id(),
             'city_id' => $city
         ]);
+
+        return redirect()->back();
+    }
+
+    public function unfavourite(Request $request, $city)
+    {
+        UserCities::where(['user_id' => Auth::id(), 'city_id' => $city])->delete();
 
         return redirect()->back();
     }

@@ -49,7 +49,7 @@ class FakerCitySeeder extends Seeder
 
         foreach ($newCitiesIds as $city_id)
         {
-            $temp = $faker->randomFloat(1, -30, 40);
+            $temp = $faker->numberBetween(-30, 40);
             Weather::create([
                'city_id' => $city_id,
                'temperature' => $temp
@@ -58,7 +58,7 @@ class FakerCitySeeder extends Seeder
             for ($i=0; $i<5; $i++)
             {
                 $weatherTypesByTemp = array();
-                $temp = $faker->randomFloat(1, max(-30, $temp - 5), min(40, $temp + 5));
+                $temp = $faker->numberBetween(max(-30, $temp - 5), min(40, $temp + 5));
 
                 foreach($weatherTypesRanges as $type => $range)
                 {

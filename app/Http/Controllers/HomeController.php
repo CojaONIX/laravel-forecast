@@ -10,8 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cities = City::with('todaysForecastType')->get();
         $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
+        $cities = City::whereIn('id', $userFavourites)->with('todaysForecastType')->get();
+
         return view('home', compact('cities', 'userFavourites'));
     }
     public function search(Request $request)
@@ -26,6 +27,6 @@ class HomeController extends Controller
 
         $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
 
-        return view('home', compact('cities', 'userFavourites'));
+        return view('searchResults', compact('cities', 'userFavourites'));
     }
 }

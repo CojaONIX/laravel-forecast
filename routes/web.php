@@ -30,6 +30,7 @@ Route::get('/weather', [WeatherController::class, 'getWeathers'])->name('weather
 Route::get('/forecast/{city:city}', [ForecastController::class, 'getCityForecasts'])->name('forecast.city.page');
 
 Route::get('/user-cities/favourite/{city}', [UserCitiesController::class, 'favourite'])->name('user.cities.favourite');
+Route::get('/user-cities/unfavourite/{city}', [UserCitiesController::class, 'unfavourite'])->name('user.cities.unfavourite');
 
 Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(function () {
     Route::controller(ForecastController::class)->prefix('/forecast')->name('forecast.')->group(function () {
