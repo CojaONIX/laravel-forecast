@@ -19,7 +19,7 @@
 @section('content')
 
     <div class="d-flex justify-content-between flex-nowrap">
-        <ul class="nav nav-pills flex-column col-2" id="menu">
+        <ul class="nav nav-pills flex-column col-3" id="menu">
             @foreach ($buttons as $btn)
                 <li class="query nav-link p-1">{{$btn}}</li>
             @endforeach

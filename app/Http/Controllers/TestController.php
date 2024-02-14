@@ -24,6 +24,7 @@ class TestController extends Controller
             'cities with weather',
             'cities with forecasts',
             'city by name with forecasts',
+            'cities with todaysForecastType',
             'weathers',
             'weathers with city'
 
@@ -63,6 +64,9 @@ class TestController extends Controller
 
             case('city by name with forecasts'):
                 return City::where(['city' => $item])->with('forecasts')->first();
+
+            case('cities with todaysForecastType'):
+                return City::with('todaysForecastType')->where('city', 'LIKE', '%'.$item.'%')->get();
 
             case('weathers'):
                 return Weather::all();

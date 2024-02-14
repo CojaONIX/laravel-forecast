@@ -9,13 +9,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cities = City::all();
+        $cities = City::with('todaysForecastType')->get();
         return view('home', compact('cities'));
     }
     public function search(Request $request)
     {
         $cityName = $request->get('city');
-        $cities = City::where('city', 'LIKE', '%'.$cityName.'%')->get();
+        $cities = City::with('todaysForecastType')->where('city', 'LIKE', '%'.$cityName.'%')->get();
 
         if(count($cities) == 0)
         {

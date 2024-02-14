@@ -11,7 +11,7 @@ class ForecastController extends Controller
 {
     public function getAllForecasts()
     {
-        $forecasts = Forecast::all();
+        $forecasts = Forecast::with('city')->get();
         return view('admin.forecast.all', compact('forecasts'));
     }
 
