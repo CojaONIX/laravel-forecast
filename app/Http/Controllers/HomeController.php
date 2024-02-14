@@ -17,6 +17,10 @@ class HomeController extends Controller
         $cityName = $request->get('city');
         $cities = City::where('city', 'LIKE', '%'.$cityName.'%')->get();
 
+        if(count($cities) == 0)
+        {
+            return redirect()->back()->with('error', 'Ne postoji grad koji sadrzi: ' . $cityName);
+        }
         return view('home', compact('cities'));
     }
 }
