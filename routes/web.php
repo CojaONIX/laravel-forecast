@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\WeatherController;
-use App\Models\City;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ForecastController;
@@ -19,11 +19,8 @@ use App\Http\Controllers\ForecastController;
 |
 */
 
-//Route::view('/', 'home')->name('home.page');
-Route::get('/', function () {
-    $cities = City::all();
-    return view('home', compact('cities'));
-})->name('home.page');
+Route::get('/', [HomeController::class, 'index'])->name('home.page');
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');

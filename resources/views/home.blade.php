@@ -11,9 +11,7 @@
     </ul>
     <hr>
 
-    <form method="POST" action="">
-        @csrf
-
+    <form method="GET" action="{{ route('home.search') }}">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="city" name="city" placeholder="City:" autofocus>
             <label for="city">City:</label>
