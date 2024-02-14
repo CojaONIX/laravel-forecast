@@ -10,7 +10,18 @@
         @foreach($cities as $city)
             @php $icon = ForecastHelper::getIconByWeatherType($city->todaysForecastType->weather_type); @endphp
             <li>
-                <a href="{{ route('user.cities.favourite', ['city' => $city->id]) }}"><i class="fa-regular fa-heart text-danger btn me-3"></i></a>
+
+                @if(in_array($city->id, $userFavourites))
+                <a href="{{ route('user.cities.favourite', ['city' => $city->id]) }}">
+                    <i class="fa-solid fa-heart text-danger btn me-3"></i>
+                </a>
+                @else
+                <a href="{{ route('user.cities.favourite', ['city' => $city->id]) }}">
+                    <i class="fa-regular fa-heart text-danger btn me-3"></i>
+                </a>
+                @endif
+
+
                 <a href="{{ route('forecast.city.page', ['city' => $city->city]) }}">
                     <i class="fa-solid fa-{{ $icon }} me-3"></i>{{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}
                 </a>

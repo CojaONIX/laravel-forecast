@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $cities = City::with('todaysForecastType')->get();
-        return view('home', compact('cities'));
+        $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
+        return view('home', compact('cities', 'userFavourites'));
     }
     public function search(Request $request)
     {
@@ -21,6 +23,9 @@ class HomeController extends Controller
         {
             return redirect()->back()->with('error', 'Ne postoji grad koji sadrzi: ' . $cityName);
         }
-        return view('home', compact('cities'));
+
+        $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
+
+        return view('home', compact('cities', 'userFavourites'));
     }
 }
