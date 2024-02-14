@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserCitiesController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ForecastController;
@@ -27,6 +28,8 @@ Route::view('/welcome', 'welcome')->name('welcome.page');
 
 Route::get('/weather', [WeatherController::class, 'getWeathers'])->name('weather.page');
 Route::get('/forecast/{city:city}', [ForecastController::class, 'getCityForecasts'])->name('forecast.city.page');
+
+Route::get('/user-cities/favourite/{city}', [UserCitiesController::class, 'favourite'])->name('user.cities.favourite');
 
 Route::middleware(['auth', 'isAdmin'])->prefix('/admin')->name('admin.')->group(function () {
     Route::controller(ForecastController::class)->prefix('/forecast')->name('forecast.')->group(function () {
