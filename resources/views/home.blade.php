@@ -6,7 +6,12 @@
 
     <ul>
         @foreach($cities as $city)
-            <li><a href="{{ route('forecast.city.page', ['city' => $city->city]) }}">{{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}</a></li>
+            @php $icon = \App\Http\ForecastHelper::getIconByWeatherType($city->todaysForecastIcon->weather_type); @endphp
+            <li>
+                <a href="{{ route('forecast.city.page', ['city' => $city->city]) }}">
+                    <i class="fa-solid fa-{{ $icon }} me-3"></i> {{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}
+                </a>
+            </li>
         @endforeach
     </ul>
     <hr>

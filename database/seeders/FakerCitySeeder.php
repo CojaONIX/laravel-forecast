@@ -55,7 +55,7 @@ class FakerCitySeeder extends Seeder
                'temperature' => $temp
             ]);
 
-            for ($i=1; $i<6; $i++)
+            for ($i=0; $i<5; $i++)
             {
                 $weatherTypesByTemp = array();
                 $temp = $faker->randomFloat(1, max(-30, $temp - 5), min(40, $temp + 5));
