@@ -88,11 +88,17 @@ class TestController extends Controller
 
             case('weatherapi.com - current'):
                 $url = 'http://api.weatherapi.com/v1/current.json';
-                $apikey = env('WEATHERAPI_KEY');
-                if($item == '') $item = 'Aleksinac';
-                $response = Http::withoutVerifying()->get($url . '?key=' . $apikey . '&q=' . $item);
-                $responseJSON = $response->json();
-                return $responseJSON;
+
+                if($item == '')
+                    $item = 'Aleksinac';
+
+                $response = Http::get($url, [
+                        'key' => env('WEATHERAPI_KEY'),
+                        'q' => $item,
+                        'aqi' => 'yes'
+                    ]);
+
+                return $response->json();
 
 
             default:

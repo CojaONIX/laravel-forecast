@@ -27,9 +27,12 @@ class weatherapiCurrent extends Command
     public function handle()
     {
         $url = 'http://api.weatherapi.com/v1/current.json';
-        $apikey = env('WEATHERAPI_KEY');
-        $response = Http::withoutVerifying()->get($url . '?key=' . $apikey . '&q=Aleksinac');
+        $response = Http::get($url, [
+            'key' => env('WEATHERAPI_KEY'),
+            'q' => 'Aleksinac'
+        ]);
+
         $responseJSON = $response->json();
-        dd($this->description, $responseJSON, $responseJSON['location']['name']. ' - ' .$responseJSON['location']['region']. ' -> ' .$responseJSON['current']['temp_c']);
+        dd($this->description, $responseJSON, $responseJSON['location']['name'].' - '.$responseJSON['location']['region'].' -> '.$responseJSON['current']['temp_c']);
     }
 }
