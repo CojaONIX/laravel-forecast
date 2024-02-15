@@ -41,6 +41,10 @@
         </table>
     </div>
 
+    @if(Session::has('error'))
+        <p class="text-danger">{{ Session::get('error') }}</p>
+    @endif
+
     <a class="btn btn-outline-primary col-3 my-3" href="{{ route('home.page') }}">OK</a>
 
 @endsection
