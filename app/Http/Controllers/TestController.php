@@ -11,6 +11,7 @@ use App\Models\Forecast;
 use App\Models\Weather;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Http;
 use Throwable;
 
 class TestController extends Controller
@@ -28,7 +29,8 @@ class TestController extends Controller
             'cities with todaysForecastType',
             'weathers',
             'weathers with city',
-            'userFavourites'
+            'userFavourites',
+            'reqres.in page'
 
         ]]);
     }
@@ -78,6 +80,11 @@ class TestController extends Controller
 
             case('userFavourites'):
                 return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecastType'])->get();
+
+            case('reqres.in page'):
+                $response = Http::withoutVerifying()->get('https://reqres.in/api/users?page=2');
+                return $response['data'];
+
 
             default:
                 return [

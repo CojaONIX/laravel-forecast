@@ -15,3 +15,8 @@
 - php artisan make:middleware AdminCheck
 - php artisan make:seeder ForecastSeeder
 - php artisan db:seed --class=ForecastSeeder
+- composer require guzzlehttp/guzzle
+
+## API's
+- https://www.weatherapi.com/
+- https://reqres.in/
