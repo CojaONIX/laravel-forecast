@@ -30,7 +30,8 @@ class TestController extends Controller
             'weathers',
             'weathers with city',
             'userFavourites',
-            'reqres.in page'
+            'reqres.in page',
+            'weatherapi.com - current'
 
         ]]);
     }
@@ -84,6 +85,14 @@ class TestController extends Controller
             case('reqres.in page'):
                 $response = Http::withoutVerifying()->get('https://reqres.in/api/users?page=2');
                 return $response['data'];
+
+            case('weatherapi.com - current'):
+                $url = 'http://api.weatherapi.com/v1/current.json';
+                $apikey = env('WEATHERAPI_KEY');
+                if($item == '') $item = 'Aleksinac';
+                $response = Http::withoutVerifying()->get($url . '?key=' . $apikey . '&q=' . $item);
+                $responseJSON = $response->json();
+                return $responseJSON;
 
 
             default:
