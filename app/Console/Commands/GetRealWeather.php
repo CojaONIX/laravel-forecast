@@ -19,7 +19,7 @@ class GetRealWeather extends Command
      *
      * @var string
      */
-    protected $description = 'https://www.weatherapi.com/ -> Real-time Weather API';
+    protected $description = 'Real-time Weather API: https://reqres.in/api/users?page=2';
 
     /**
      * Execute the console command.
@@ -30,7 +30,7 @@ class GetRealWeather extends Command
 
         $response = Http::withoutVerifying()->get($url);
         $responseASOC = json_decode($response, true); // ???
-        dd($response['data'][0]);
+        dd($this->description, $response['data'][0]);
 
     }
 }
