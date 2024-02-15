@@ -23,7 +23,7 @@ class City extends Model
         return $this->hasMany(Forecast::class)->orderBy('date');
     }
 
-    public function todaysForecastType()
+    public function todaysForecast()
     {
         return $this->hasOne(Forecast::class)->whereDate('date', Carbon::now())->withDefault('null');
     }

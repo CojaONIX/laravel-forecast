@@ -9,7 +9,7 @@
     <div class="col-md-6">
         <table class="table">
             @foreach($cities as $city)
-                @php $icon = ForecastHelper::getIconByWeatherType($city->todaysForecastType->weather_type); @endphp
+                @php $icon = ForecastHelper::getIconByWeatherType($city->todaysForecast->weather_type); @endphp
                 <tr>
                     <td class="text-center">
                         <a href="{{ route('user.cities.unfavourite', ['city' => $city->id]) }}">
@@ -28,7 +28,7 @@
                     </td>
 
                     <td class="text-end">
-                        {{ $city->todaysForecastType->temperature }}&#8451;
+                        {{ $city->todaysForecast->temperature }}&#8451;
                     </td>
                 </tr>
             @endforeach

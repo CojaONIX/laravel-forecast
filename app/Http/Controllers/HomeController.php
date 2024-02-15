@@ -12,18 +12,18 @@ class HomeController extends Controller
     public function index()
     {
         $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
-        $cities = City::whereIn('id', $userFavourites)->with('todaysForecastType')->get();
+        $cities = City::whereIn('id', $userFavourites)->with('todaysForecast')->get();
 
         return view('home', compact('cities'));
 
-        //$userFavourites = UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecastType'])->get(); // 18.6
+        //$userFavourites = UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecast'])->get(); // 18.6
         // home.blade
         //return view('home', compact('userFavourites'));
     }
     public function search(Request $request)
     {
         $cityName = $request->get('city');
-        $cities = City::with('todaysForecastType')->where('city', 'LIKE', '%'.$cityName.'%')->get();
+        $cities = City::with('todaysForecast')->where('city', 'LIKE', '%'.$cityName.'%')->get();
 
         if(count($cities) == 0)
         {

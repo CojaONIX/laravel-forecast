@@ -26,7 +26,7 @@ class TestController extends Controller
             'cities with weather',
             'cities with forecasts',
             'city by name with forecasts',
-            'cities with todaysForecastType',
+            'cities with todaysForecast',
             'weathers',
             'weathers with city',
             'userFavourites',
@@ -69,8 +69,8 @@ class TestController extends Controller
             case('city by name with forecasts'):
                 return City::where(['city' => $item])->with('forecasts')->first();
 
-            case('cities with todaysForecastType'):
-                return City::with('todaysForecastType')->where('city', 'LIKE', '%'.$item.'%')->get();
+            case('cities with todaysForecast'):
+                return City::with('todaysForecast')->where('city', 'LIKE', '%'.$item.'%')->get();
 
             case('weathers'):
                 return Weather::all();
@@ -79,7 +79,7 @@ class TestController extends Controller
                 return Weather::with('city:id,city')->get();
 
             case('userFavourites'):
-                return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecastType'])->get();
+                return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecast'])->get();
 
             case('reqres.in page'):
                 $response = Http::withoutVerifying()->get('https://reqres.in/api/users?page=2');
