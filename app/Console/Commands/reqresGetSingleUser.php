@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class GetSingleUser extends Command
+class reqresGetSingleUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'weather:get-single-user';
+    protected $signature = 'reqres:get-single-user';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'GetSingleUser: https://reqres.in/api/users/2';
+    protected $description = 'reqresGetSingleUser: https://reqres.in/api/users/2';
 
     /**
      * Create a new command instance.
