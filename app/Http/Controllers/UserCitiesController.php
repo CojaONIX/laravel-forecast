@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCitiesController extends Controller
 {
-    public function favourite(Request $request, $city)
+    public function favourite($city)
     {
         if(!Auth::check())
         {
@@ -24,7 +24,7 @@ class UserCitiesController extends Controller
         return redirect()->back();
     }
 
-    public function unfavourite(Request $request, $city)
+    public function unfavourite($city)
     {
         UserCities::where(['user_id' => Auth::id(), 'city_id' => $city])->delete();
 

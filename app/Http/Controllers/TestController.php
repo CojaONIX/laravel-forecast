@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserCities;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -26,7 +27,8 @@ class TestController extends Controller
             'city by name with forecasts',
             'cities with todaysForecastType',
             'weathers',
-            'weathers with city'
+            'weathers with city',
+            'userFavourites'
 
         ]]);
     }
@@ -73,6 +75,9 @@ class TestController extends Controller
 
             case('weathers with city'):
                 return Weather::with('city:id,city')->get();
+
+            case('userFavourites'):
+                return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecastType'])->get();
 
             default:
                 return [
