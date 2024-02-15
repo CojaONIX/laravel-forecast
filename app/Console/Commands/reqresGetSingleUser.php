@@ -22,24 +22,13 @@ class reqresGetSingleUser extends Command
     protected $description = 'reqresGetSingleUser: https://reqres.in/api/users/2';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
     {
-        $console = $this->getOutput();
-        $id = $console->ask("Unesite id korisnika? (max: 12)", 1);
-
+        $id = $this->ask("Unesite id korisnika? (max: 12)", 1);
         $response = Http::withoutVerifying()->get('https://reqres.in/api/users/' . $id);
+
         dd($this->description, $response['data']);
     }
 }
