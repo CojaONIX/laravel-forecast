@@ -6,29 +6,32 @@
 
 @section('content')
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <table class="table">
             @foreach($cities as $city)
-                @php $icon = ForecastHelper::getIconByWeatherType($city->todaysForecast->weather_type); @endphp
                 <tr>
                     <td class="text-center">
-                        <a href="{{ route('user.cities.unfavourite', ['city' => $city->id]) }}">
+                        <a href="{{ route('user.cities.unfavourite', ['city' => $city->city->id]) }}">
                             <i class="fa-solid fa-heart text-danger btn me-3"></i>
                         </a>
                     </td>
 
                     <td>
                         <a href="{{ route('forecast.city.page', ['city' => $city->city]) }}">
-                            {{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}
+                            {{ mb_convert_case($city->city->city, MB_CASE_TITLE, "UTF-8") }}, {{ $city->city->country }}
                         </a>
                     </td>
 
                     <td class="text-center">
-                        <i class="fa-solid fa-{{ $icon }} text-primary"></i>
+                        <img src="{{ $city->city->todaysForecast->icon }}" height="30px">
                     </td>
 
                     <td class="text-end">
-                        {{ $city->todaysForecast->temperature }}&#8451;
+                        {{ $city->city->todaysForecast->temperature }}&#8451;
+                    </td>
+
+                    <td>
+                        {{ $city->city->todaysForecast->updated_at }}
                     </td>
                 </tr>
             @endforeach

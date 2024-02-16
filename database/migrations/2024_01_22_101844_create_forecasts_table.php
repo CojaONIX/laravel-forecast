@@ -19,6 +19,9 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->float('temperature', 5, 2);
             $table->date('date');
+            $table->string('weather_type')->default('sunny');
+            $table->unsignedSmallInteger('probability')->nullable();
+            $table->string('icon');
             $table->timestamps();
         });
     }

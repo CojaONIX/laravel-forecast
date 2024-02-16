@@ -9,7 +9,6 @@
     <div class="col-md-6">
         <table class="table">
         @foreach($cities as $city)
-            @php $icon = ForecastHelper::getIconByWeatherType($city->todaysForecast->weather_type); @endphp
             <tr>
                 <td class="text-center">
                     @if(in_array($city->id, $userFavourites))
@@ -25,12 +24,12 @@
 
                 <td>
                     <a href="{{ route('forecast.city.page', ['city' => $city->city]) }}">
-                        {{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}
+                        {{ mb_convert_case($city->city, MB_CASE_TITLE, "UTF-8") }}, {{ $city->country }}
                     </a>
                 </td>
 
                 <td class="text-center">
-                    <i class="fa-solid fa-{{ $icon }} text-primary"></i>
+                    <img src="{{ $city->todaysForecast->icon }}" height="30px">
                 </td>
 
                 <td class="text-end">

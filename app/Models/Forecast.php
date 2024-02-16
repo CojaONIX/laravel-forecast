@@ -13,7 +13,8 @@ class Forecast extends Model
         'temperature',
         'date',
         'weather_type',
-        'probability'
+        'probability',
+        'icon'
     ];
 
     const WEATHERS = ['sunny', 'cloudy', 'rainy', 'snowy'];

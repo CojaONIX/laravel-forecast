@@ -81,7 +81,7 @@ class TestController extends Controller
                 return Weather::with('city:id,city')->get();
 
             case('userFavourites'):
-                return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city', 'city.todaysForecast'])->get();
+                return UserCities::where(['user_id' => Auth::id()])->with(['city:id,city,country', 'city.todaysForecast'])->get();
 
             case('reqres.in page'):
                 $response = Http::withoutVerifying()->get('https://reqres.in/api/users?page=2');
@@ -95,8 +95,7 @@ class TestController extends Controller
 
                 $response = Http::get($url, [
                         'key' => env('WEATHERAPI_KEY'),
-                        'q' => $item,
-                        'aqi' => 'yes'
+                        'q' => $item
                     ]);
 
                 return $response->json();
@@ -109,10 +108,9 @@ class TestController extends Controller
 
                 $response = Http::get($url, [
                     'key' => env('WEATHERAPI_KEY'),
-                    'q' => 'Aleksinac',
-                    'days' => $item,
-                    'hour' => 12,
-                    'alerts' => 'yes'
+                    'q' => $item,
+                    'days' => 1,
+                    'hour' => 12
                 ]);
 
                 return $response->json();
