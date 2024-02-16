@@ -27,12 +27,19 @@ class weatherapiCurrent extends Command
     public function handle()
     {
         $url = env('WEATHERAPI_URL').'/current.json';
+        $city = $this->argument('city');
         $response = Http::get($url, [
             'key' => env('WEATHERAPI_KEY'),
-            'q' => $this->argument('city')
+            'q' => $city
         ]);
 
-        $responseJSON = $response->json();
-        dd($this->description, $responseJSON, $responseJSON['location']['name'].' - '.$responseJSON['location']['region'].' -> '.$responseJSON['current']['temp_c']);
+        if($response->status() != 200)
+        {
+            $this->error($response['error']['message'] .  ' Argument city: ' . $city);
+            dd();
+        }
+
+        $this->info(json_encode($response->json()));
+        dd($this->description, $response->json(), $response['location']['name'].' - '.$response['location']['region'].' -> '.$response['current']['temp_c']);
     }
 }
