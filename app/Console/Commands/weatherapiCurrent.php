@@ -12,24 +12,24 @@ class weatherapiCurrent extends Command
      *
      * @var string
      */
-    protected $signature = 'weatherapi:current';
+    protected $signature = 'weatherapi:current {city}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'weatherapiCurrent: http://api.weatherapi.com/v1/current.json';
+    protected $description = 'weatherapiCurrent: /current.json';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $url = 'http://api.weatherapi.com/v1/current.json';
+        $url = env('WEATHERAPI_URL').'/current.json';
         $response = Http::get($url, [
             'key' => env('WEATHERAPI_KEY'),
-            'q' => 'Aleksinac'
+            'q' => $this->argument('city')
         ]);
 
         $responseJSON = $response->json();
