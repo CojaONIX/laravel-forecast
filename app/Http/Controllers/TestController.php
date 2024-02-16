@@ -31,7 +31,8 @@ class TestController extends Controller
             'weathers with city',
             'userFavourites',
             'reqres.in page',
-            'weatherapi.com - current'
+            'weatherapi.com - current',
+            'weatherapi.com - forecast'
 
         ]]);
     }
@@ -100,6 +101,21 @@ class TestController extends Controller
 
                 return $response->json();
 
+            case('weatherapi.com - forecast'):
+                $url = 'http://api.weatherapi.com/v1/forecast.json';
+
+                if($item == '')
+                    $item = 'Aleksinac';
+
+                $response = Http::get($url, [
+                    'key' => env('WEATHERAPI_KEY'),
+                    'q' => 'Aleksinac',
+                    'days' => $item,
+                    'hour' => 12,
+                    'alerts' => 'yes'
+                ]);
+
+                return $response->json();
 
             default:
                 return [
