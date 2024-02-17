@@ -23,15 +23,15 @@
                     </td>
 
                     <td class="text-center">
-                        <img src="{{ $city->city->todaysForecast->icon }}" height="30px">
+                        <img src="{{ $city->city->weather->icon }}" height="30px">
                     </td>
 
                     <td class="text-end">
-                        {{ $city->city->todaysForecast->temperature }}&#8451;
+                        {{ $city->city->weather->temperature }}&#8451;
                     </td>
 
                     <td>
-                        {{ $city->city->todaysForecast->updated_at }}
+                        {{ $city->city->weather->updated_at }}
                     </td>
                 </tr>
             @endforeach

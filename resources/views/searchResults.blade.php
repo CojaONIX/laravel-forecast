@@ -28,13 +28,6 @@
                     </a>
                 </td>
 
-                <td class="text-center">
-                    <img src="{{ $city->todaysForecast->icon }}" height="30px">
-                </td>
-
-                <td class="text-end">
-                    {{ $city->todaysForecast->temperature }}&#8451;
-                </td>
             </tr>
         @endforeach
         </table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Forecast;
 use App\Models\UserCities;
+use App\Models\Weather;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +17,11 @@ class HomeController extends Controller
     public function index()
     {
         $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
-        $forecasts = Forecast::whereIn('city_id', $userFavourites)->with('city')->get();
-
+        $forecasts = Weather::whereIn('city_id', $userFavourites)->with('city')->get();
+        //$cities = Auth::user()->cityFavourite()->with(['city', 'city.weather'])->get();
 
         foreach($forecasts as $forecast)
         {
-
             if(Carbon::now()->diffInMinutes($forecast->updated_at) > 1) {
                 $url = env('WEATHERAPI_URL') . '/forecast.json';
                 $response = Http::get($url, [
@@ -36,13 +36,13 @@ class HomeController extends Controller
                 $forecast->weather_type = $response['current']['condition']['text'];
                 $forecast->probability = $response['forecast']['forecastday'][0]['day']['daily_chance_of_rain'];
                 $forecast->icon = $response['current']['condition']['icon'];
-                //??? $forecast->updated_at = Carbon::now();
+
                 $forecast->save();
             }
         }
 
 
-        $cities = UserCities::where(['user_id' => Auth::id()])->with(['city:id,city,country', 'city.todaysForecast'])->get();
+        $cities = UserCities::where(['user_id' => Auth::id()])->with(['city:id,city,country', 'city.weather'])->get();
 
         return view('home', compact('cities'));
     }
@@ -74,18 +74,18 @@ class HomeController extends Controller
                 'country' => $response['location']['country']
             ]);
 
-            UserCities::create([
-                'user_id' => Auth::id(),
-                'city_id' => $dbCity->id
-            ]);
-
-            Forecast::create([
+            Weather::create([
                 'city_id' => $dbCity->id,
                 'temperature' => $response['current']['temp_c'],
                 'date' => Carbon::now()->format('Y-m-d'),
                 'weather_type' => $response['current']['condition']['text'],
                 'probability' => $response['forecast']['forecastday'][0]['day']['daily_chance_of_rain'],
                 'icon' => $response['current']['condition']['icon']
+            ]);
+
+            UserCities::create([
+                'user_id' => Auth::id(),
+                'city_id' => $dbCity->id
             ]);
 
             return redirect()->back();

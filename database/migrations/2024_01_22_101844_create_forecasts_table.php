@@ -17,9 +17,9 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->float('temperature', 5, 2);
+            $table->float('temperature');
             $table->date('date');
-            $table->string('weather_type')->default('sunny');
+            $table->string('weather_type');
             $table->unsignedSmallInteger('probability')->nullable();
             $table->string('icon');
             $table->timestamps();

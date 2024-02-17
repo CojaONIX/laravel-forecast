@@ -19,10 +19,8 @@ class TestController extends Controller
     public function showTest(Request $request)
     {
         return view('test', ['buttons' => [
-            'users',
-            'user by id',
-            'logged user',
-            'cities',
+            'test1',
+            'test2',
             'cities with weather',
             'cities with forecasts',
             'city by name with forecasts',
@@ -32,7 +30,8 @@ class TestController extends Controller
             'userFavourites',
             'reqres.in page',
             'weatherapi.com - current',
-            'weatherapi.com - forecast'
+            'weatherapi.com - forecast',
+            'freeipapi.com'
 
         ]]);
     }
@@ -42,25 +41,14 @@ class TestController extends Controller
         $item = $request->item;
         switch($request->action) {
 
-            case('users'):
-                return User::all();
+            case('test1'):
+                $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
+                return Weather::whereIn('city_id', $userFavourites)->with('city')->get();
 
-            case('user by id'):
-                try {
-                    return User::findOrFail($item);
-                } catch (Throwable $e) {
-                    return [
-                        'code' => 404,
-                        'message' => 'User Not found - id=' . $item,
-                        'Try with' => User::all()->pluck('id')
-                    ];
-                }
+            case('test2'):
+                return Auth::user()->cityFavourite()->with(['city', 'city.weather'])->get();
 
-            case('logged user'):
-                return Auth::user();
 
-            case('cities'):
-                return City::all();
 
             case('cities with weather'):
                 return City::with('weather')->get();
@@ -114,6 +102,10 @@ class TestController extends Controller
                 ]);
 
                 return $response->json();
+
+            case('freeipapi.com'):
+                return Http::withoutVerifying()->get('https://freeipapi.com/api/json/');
+
 
             default:
                 return [

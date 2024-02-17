@@ -31,9 +31,8 @@ class weatherapiForecast extends Command
         $response = Http::get($url, [
             'key' => env('WEATHERAPI_KEY'),
             'q' => $city,
-            'days' => 2, // default: 1 (current date)
-            'hour' => 12, // default: all hours
-            'alerts' => 'yes'
+            'days' => 1, // default: 1 (current date)
+            'hour' => 12 // default: all hours
         ]);
 
         if($response->status() != 200)
