@@ -39,18 +39,22 @@
     </div>
     <hr>
 
-    @if(Session::has('error'))
-        <p class="text-danger">{{ Session::get('error') }}</p>
-    @endif
+    <form method="GET" action="{{ route('home.geolocation') }}">
+        <button class="btn btn-outline-secondary col-3 my-3" type="submit">Geolocation</button>
+    </form>
 
     <form method="GET" action="{{ route('home.search') }}">
         <div class="form-floating col-3 mb-3">
-            <input type="text" class="form-control" id="city" name="city" placeholder="City:" autofocus>
+            <input type="text" class="form-control" id="city" name="city" placeholder="City:" value="{{ Session::get('city') }}" autofocus>
             <label for="city">City:</label>
 
         </div>
 
         <button class="btn btn-outline-primary col-3 my-3" type="submit">Search</button>
+
+        @if(Session::has('error'))
+            <p class="text-danger">{{ Session::get('error') }}</p>
+        @endif
     </form>
 
 @endsection

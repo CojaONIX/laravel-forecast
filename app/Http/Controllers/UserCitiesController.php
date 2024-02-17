@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\UserCities;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,11 @@ class UserCitiesController extends Controller
     public function unfavourite($city)
     {
         UserCities::where(['user_id' => Auth::id(), 'city_id' => $city])->delete();
+
+//        if(UserCities::where(['city_id' => $city])->count() == 0)
+//        {
+//            City::where(['id' => $city])->delete();
+//        }
 
         return redirect()->back();
     }

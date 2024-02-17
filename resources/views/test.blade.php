@@ -24,7 +24,7 @@
                 <li class="query nav-link p-1">{{$btn}}</li>
             @endforeach
         </ul>
-        <div class="col-9">
+        <div class="col-9 ms-3">
             <input type="text" class="form-control col-12 mb-3" id="item">
             <pre id="data"></pre>
         </div>

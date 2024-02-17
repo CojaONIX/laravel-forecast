@@ -22,6 +22,7 @@ use App\Http\Controllers\ForecastController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.page');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+Route::get('/geolocation', [HomeController::class, 'geolocation'])->name('home.geolocation');
 
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');

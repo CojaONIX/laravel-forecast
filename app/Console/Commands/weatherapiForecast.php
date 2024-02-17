@@ -2,7 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Models\City;
+use App\Models\UserCities;
+use App\Models\Weather;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class weatherapiForecast extends Command
@@ -37,11 +42,28 @@ class weatherapiForecast extends Command
 
         if($response->status() != 200)
         {
-            $this->error($response['error']['message'] .  ' Argument city: ' . $city);
-            dd();
+            $this->info(json_encode(['error' => $response['error']['message'] . ' Argument city: ' . $city]));
+            return;
         }
 
-        //$this->info(json_encode($response->json()));
-        dd($this->description, $response->json());
+        $dbCity = City::firstOrCreate([
+            "city" => mb_strtolower($city, 'UTF-8'),
+            'country' => $response['location']['country']
+        ]);
+
+        Weather::updateOrCreate(
+            ['city_id' => $dbCity->id],
+            [
+                'city_id' => $dbCity->id,
+                'temperature' => $response['current']['temp_c'],
+                'date' => Carbon::now()->format('Y-m-d'),
+                'weather_type' => $response['current']['condition']['text'],
+                'probability' => $response['forecast']['forecastday'][0]['day']['daily_chance_of_rain'],
+                'icon' => $response['current']['condition']['icon'],
+            ]
+        );
+
+        $this->info(json_encode(['new_city_id' => $dbCity->id]));
+
     }
 }

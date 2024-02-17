@@ -42,11 +42,10 @@ class TestController extends Controller
         switch($request->action) {
 
             case('test1'):
-                $userFavourites = Auth::check() ? Auth::user()->cityFavourite->pluck('city_id')->toArray() : [];
-                return Weather::whereIn('city_id', $userFavourites)->with('city')->get();
+                return City::where('city', 'LIKE', '%'.$item.'%')->with('user.cityFavourite')->get();
 
             case('test2'):
-                return Auth::user()->cityFavourite()->with(['city', 'city.weather'])->get();
+                return Auth::user()->cityFavourite()->with(['city:id,city,country', 'city.weather'])->get();
 
 
 
