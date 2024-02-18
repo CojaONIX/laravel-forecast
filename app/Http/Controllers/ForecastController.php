@@ -80,9 +80,10 @@ class ForecastController extends Controller
             'q' => $city->city
         ]);
 
-        $astro = $response['astronomy']['astro'];
+        $sunrise = $response['astronomy']['astro']['sunrise'];
+        $sunset = $response['astronomy']['astro']['sunset'];
 
-        return view('cityForecast', compact('city', 'astro'));  // 14.8
+        return view('cityForecast', compact('city',  'sunrise', 'sunset'));  // 14.8
     }
 
     public function forecastsAll()

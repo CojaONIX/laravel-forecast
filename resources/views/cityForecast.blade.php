@@ -4,8 +4,8 @@
 
 @section('content')
 
-    <h4>Sunrise: {{ $astro['sunrise'] }}</h4>
-    <h4>Sunset: {{ $astro['sunset'] }}</h4>
+    <h4>Sunrise: {{ $sunrise }}</h4>
+    <h4>Sunset: {{ $sunset }}</h4>
 
     @if(isset($cityForecasts))
         <h2>{{ ucwords($cityForecasts->city) }}</h2>
