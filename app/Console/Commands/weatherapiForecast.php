@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\City;
 use App\Models\UserCities;
 use App\Models\Weather;
+use App\Services\WeatherService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
@@ -31,14 +32,10 @@ class weatherapiForecast extends Command
      */
     public function handle()
     {
-        $url = env('WEATHERAPI_URL').'/forecast.json';
         $city = $this->argument('city');
-        $response = Http::get($url, [
-            'key' => env('WEATHERAPI_KEY'),
-            'q' => $city,
-            'days' => 1, // default: 1 (current date)
-            'hour' => 12 // default: all hours
-        ]);
+
+        $weatherService = new WeatherService();
+        $response = $weatherService->getWeather($city);
 
         if($response->status() != 200)
         {

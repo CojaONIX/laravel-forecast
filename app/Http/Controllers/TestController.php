@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserCities;
+use App\Services\WeatherService;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -89,19 +90,11 @@ class TestController extends Controller
                 return $response->json();
 
             case('weatherapi.com - forecast'):
-                $url = 'http://api.weatherapi.com/v1/forecast.json';
-
                 if($item == '')
                     $item = 'Aleksinac';
 
-                $response = Http::get($url, [
-                    'key' => env('WEATHERAPI_KEY'),
-                    'q' => $item,
-                    'days' => 3,
-                    'hour' => 12
-                ]);
-
-                return $response->json();
+                $weatherService = new WeatherService();
+                return $weatherService->getWeather($item);
 
             case('weatherapi.com - astronomy'):
                 // current day
