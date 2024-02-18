@@ -31,7 +31,8 @@ class TestController extends Controller
             'reqres.in page',
             'weatherapi.com - current',
             'weatherapi.com - forecast',
-            'freeipapi.com'
+            'weatherapi.com - astronomy',
+            'freeipapi.com',
 
         ]]);
     }
@@ -96,8 +97,22 @@ class TestController extends Controller
                 $response = Http::get($url, [
                     'key' => env('WEATHERAPI_KEY'),
                     'q' => $item,
-                    'days' => 1,
+                    'days' => 3,
                     'hour' => 12
+                ]);
+
+                return $response->json();
+
+            case('weatherapi.com - astronomy'):
+                // current day
+                $url = 'http://api.weatherapi.com/v1/astronomy.json';
+
+                if($item == '')
+                    $item = 'Aleksinac';
+
+                $response = Http::get($url, [
+                    'key' => env('WEATHERAPI_KEY'),
+                    'q' => $item
                 ]);
 
                 return $response->json();

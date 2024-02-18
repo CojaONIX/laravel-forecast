@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Forecast;
 use App\Models\Weather;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ForecastController extends Controller
 {
@@ -74,7 +75,14 @@ class ForecastController extends Controller
 //        $cityForecasts = $city->load('forecasts');
 //        return view('cityForecast', compact('cityForecasts'));
 
-        return view('cityForecast', compact('city'));  // 14.8
+        $response = Http::get('http://api.weatherapi.com/v1/astronomy.json', [
+            'key' => env('WEATHERAPI_KEY'),
+            'q' => $city->city
+        ]);
+
+        $astro = $response['astronomy']['astro'];
+
+        return view('cityForecast', compact('city', 'astro'));  // 14.8
     }
 
     public function forecastsAll()
