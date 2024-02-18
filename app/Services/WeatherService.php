@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherService
 {
+
     public function getWeather($city)
     {
-        $url = env('WEATHERAPI_URL').'/forecast.json';
-        $response = Http::get($url, [
+        $response = Http::get(env('WEATHERAPI_URL') . '/forecast.json', [
             'key' => env('WEATHERAPI_KEY'),
             'q' => $city,
             'days' => 1, // default: 1 (current date)
@@ -17,5 +17,15 @@ class WeatherService
         ]);
 
         return $response;
+    }
+
+    public function getAstronomy($city)
+    {
+        $response = Http::get(env('WEATHERAPI_URL') . '/astronomy.json', [
+            'key' => env('WEATHERAPI_KEY'),
+            'q' => $city
+        ]);
+
+        return $response['astronomy']['astro'];
     }
 }

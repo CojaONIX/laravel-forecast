@@ -97,18 +97,12 @@ class TestController extends Controller
                 return $weatherService->getWeather($item);
 
             case('weatherapi.com - astronomy'):
-                // current day
-                $url = 'http://api.weatherapi.com/v1/astronomy.json';
-
                 if($item == '')
                     $item = 'Aleksinac';
 
-                $response = Http::get($url, [
-                    'key' => env('WEATHERAPI_KEY'),
-                    'q' => $item
-                ]);
+                $weatherService = new WeatherService();
+                return $weatherService->getAstronomy($item); // astro
 
-                return $response->json();
 
             case('freeipapi.com'):
                 return Http::withoutVerifying()->get('https://freeipapi.com/api/json/');
