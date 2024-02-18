@@ -54,7 +54,6 @@ class weatherapiForecast extends Command
         Weather::updateOrCreate(
             ['city_id' => $dbCity->id],
             [
-                'city_id' => $dbCity->id,
                 'temperature' => $response['current']['temp_c'],
                 'date' => Carbon::now()->format('Y-m-d'),
                 'weather_type' => $response['current']['condition']['text'],
