@@ -16,13 +16,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cities = Auth::user()->cityFavourite()->with(['city:id,city,country', 'city.weather'])->get();
-
-        foreach($cities as $city)
+        $cities = [];
+        if(Auth::check())
         {
-            if(Carbon::now()->diffInMinutes($city->city->weather->updated_at) > 5) {
-                Artisan::call('weatherapi:forecast', ['city' => $city->city->city]);
-                $city->refresh();
+            $cities = Auth::user()->cityFavourite()->with(['city:id,city,country', 'city.weather'])->get();
+
+            foreach ($cities as $city) {
+                if (Carbon::now()->diffInMinutes($city->city->weather->updated_at) > 5) {
+                    Artisan::call('weatherapi:forecast', ['city' => $city->city->city]);
+                    $city->refresh();
+                }
             }
         }
 
